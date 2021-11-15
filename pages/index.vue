@@ -4,7 +4,7 @@
     <InputField
       v-model="text"
       name="text"
-      placeholder="Digite a tarefa..."
+      placeholder="Digite alguma coisa..."
       @keyup.enter.native="addItem"
       @blur="addItem" />
     <ToDoList :items="items" @removeItem="removeItemByIndex" />

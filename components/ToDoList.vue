@@ -35,12 +35,11 @@ ul {
     color: white;
     border-radius: 20px;
     font-size: 14px;
-    transition: all 0.25s ease;
+    transition: background 0.25s ease;
     max-width: 100%;
 
     &:hover {
       background-color: $purple;
-      transform: translateY(-5px);
     }
 
     span {
