@@ -8,6 +8,13 @@
       @keyup.enter.native="addItem"
       @blur="addItem" />
     <ToDoList :items="items" @removeItem="removeItemByIndex" />
+
+    <footer>
+      <span v-if="loading">Atualizando...</span>
+      <span v-else-if="updatedAt" @click="getUpdatedAt">
+        Projeto atualizado em <strong>{{ updatedAt | formatDate }}</strong>
+      </span>
+    </footer>
   </section>
 </template>
 
@@ -20,10 +27,20 @@ export default {
     InputField,
     ToDoList
   },
+  filters: {
+    formatDate(value) {
+      return new Date(value).toLocaleString('pt-BR')
+    }
+  },
   data: () => ({
     items: [],
-    text: ''
+    text: '',
+    updatedAt: null,
+    loading: true,
   }),
+  mounted(){
+    this.getUpdatedAt()
+  },
   methods: {
     addItem() {
       if(!this.text) return
@@ -33,6 +50,17 @@ export default {
     },
     removeItemByIndex(index) {
       this.items.splice(index, 1)
+    },
+    async getUpdatedAt() {
+      try {
+        this.loading = true
+        const response = await this.$axios('https://api.github.com/repos/guiwb/to-do')
+        this.updatedAt = response.data.updated_at
+      } catch (error) {
+        this.$toast.error(error)
+      } finally {
+        this.loading = false
+      }
     }
   }
 }
@@ -41,7 +69,6 @@ export default {
 <style lang="scss" scoped>
 section {
   margin-top: 50px;
-  min-height: 100vh;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -56,6 +83,10 @@ section {
     &:hover {
       color: $purple;
     }
+  }
+
+  footer {
+    font-style: italic;
   }
 }
 </style>
