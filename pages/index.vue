@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h1>To-Do App</h1>
+    <h1>ToDo App</h1>
     <InputField v-model="text" name="text" @keyup.enter.native="addItem" />
     <ToDoList :items="items" @removeItem="removeItemByIndex" />
   </section>
@@ -30,3 +30,17 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+section {
+  margin-top: 50px;
+  min-height: 100vh;
+  text-align: center;
+
+  h1 {
+    font-size: 50px;
+    font-weight: 200;
+    margin-bottom: 50px;
+  }
+}
+</style>
