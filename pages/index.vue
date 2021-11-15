@@ -1,7 +1,12 @@
 <template>
   <section>
     <h1>ToDo App</h1>
-    <InputField v-model="text" name="text" @keyup.enter.native="addItem" />
+    <InputField
+      v-model="text"
+      name="text"
+      placeholder="Digite a tarefa..."
+      @keyup.enter.native="addItem"
+      @blur="addItem" />
     <ToDoList :items="items" @removeItem="removeItemByIndex" />
   </section>
 </template>
@@ -21,6 +26,8 @@ export default {
   }),
   methods: {
     addItem() {
+      if(!this.text) return
+
       this.items.push(this.text)
       this.text = ''
     },
@@ -36,11 +43,19 @@ section {
   margin-top: 50px;
   min-height: 100vh;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   h1 {
     font-size: 50px;
     font-weight: 200;
     margin-bottom: 50px;
+    transition: color 0.25s ease;
+
+    &:hover {
+      color: $purple;
+    }
   }
 }
 </style>

@@ -53,3 +53,9 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+input {
+  font-family: 'Poppins', sans-serif;
+  outline: none;
+  border: none;
+}
